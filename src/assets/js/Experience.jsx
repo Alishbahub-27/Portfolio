@@ -16,6 +16,15 @@ const Experience = () => {
       description:
         "Leading end-to-end WordPress development for client websites, including custom Elementor builds, responsive marketing pages, SEO optimization, and performance improvements. Develop and maintain operational portals with PHP and MySQL databases, handle website migrations, configure CPTs and ACF, and integrate third-party tools, APIs, forms, payment gateways, and automation workflows.",
     },
+
+    {
+      role: "WordPress Developer & SEO Specialist",
+      company: "Nexora Global BPO [United States]",
+      duration: "Oct 2026 — Present (Part-Time)",
+      description:
+        "Developing and optimizing telecom websites, including BroadbandsNow.com, using WordPress, Elementor, and responsive web technologies. Managing end-to-end SEO strategies, including on-page, off-page, and technical SEO, keyword research, competitor analysis, backlink building, and content optimization using SEMrush, Ahrefs, Google Search Console, and Google Analytics. Focused on improving search rankings, organic traffic, website performance, and lead generation.",
+    },
+
     {
       role: "Web Developer Intern",
       company: "WebDevSoft - Web & Software Solutions [Bihar,India]",

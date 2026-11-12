@@ -4,6 +4,8 @@ import AlArabianFurnitureImg from "../images/AlArabianFurnitureImg.png";
 import DecorumClassImg from "../images/DecorumClassImg.png";
 import EdenOrthoImg from "../images/Eden-Ortho-Project.jpg";
 import InfinityProtectionImg from "../images/Infinity-Protection-Img.png";
+import BroadbandsNowImg from "../images/broadbandsnow.png";
+import Infinity360CRMImg from "../images/infinity360crm.png";
 import AIBusinessIntegratorsImg from "../images/AIBusiness-Integrators.png";
 import Nations195Img from "../images/195-Nations-Project.webp";
 import HeritageImg from "../images/Heritage-Project.jpeg";
@@ -18,6 +20,24 @@ import BlogsProjectImg from "../images/Blogs-project.png";
 
 const Projects = () => {
   const projects = [
+    {
+      title: "BroadbandsNow",
+      category: "WordPress Development & SEO Optimization",
+      description:
+        "Designed and developed a responsive telecom website using WordPress, featuring internet provider comparisons, service pages, and lead generation functionality. Implemented on-page, off-page, and technical SEO strategies, including keyword research, competitor analysis, backlink building, and content optimization using SEMrush, Ahrefs, Google Search Console, and Google Analytics to improve search visibility, organic traffic, and website performance.",
+      img: BroadbandsNowImg,
+      link: "https://broadbandsnow.com/",
+    },
+
+    {
+      title: "Infinity 360 CRM",
+      category: "WordPress Development & UI/UX Design",
+      description:
+        "Designed and developed a modern, fully responsive digital marketing agency website using WordPress, featuring custom layouts, interactive pricing plans, service showcases, and engaging UI animations. Built dynamic sections for website development, SEO, social media marketing, and GoHighLevel CRM services. Implemented lead generation forms, mobile-friendly navigation, on-page SEO, and performance optimizations to deliver a seamless user experience.",
+      img: Infinity360CRMImg,
+      link: "https://infinity360crm.com/",
+    },
+
     {
       title: "Infinity Protection",
       category: "Frontend & WordPress Development",
