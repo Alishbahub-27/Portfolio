@@ -9,6 +9,10 @@
   font-family: var(--font-body);
   padding-block: clamp(100px, 12vw, 160px);
   background: var(--bg);
+  .experience-image img {
+    filter: grayscale(1) sepia(0.55) hue-rotate(-25deg) saturate(1.6) brightness(0.9) contrast(1.05);
+    opacity: 0.9;
+  }
 
   &::before {
     content: "Experience";
