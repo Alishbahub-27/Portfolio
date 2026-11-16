@@ -10,11 +10,12 @@ const Experience = () => {
         "Working as a Full Stack WordPress Developer handling frontend and backend, including theme customization, plugin integration, responsive UI development, SEO optimization, and website performance improvements.",
     },
     {
-      role: "Senior WordPress Developer",
-      company: "Ithon Technology [United States]",
-      duration: "Jun 2025 — Present (Full-Time)",
+      role: "Senior Web Developer",
+      company: "CostVisory",
+      duration: "Aug 2026 — Present",
+      location: "Teaneck, US",
       description:
-        "Leading end-to-end WordPress development for client websites, including custom Elementor builds, responsive marketing pages, SEO optimization, and performance improvements. Develop and maintain operational portals with PHP and MySQL databases, handle website migrations, configure CPTs and ACF, and integrate third-party tools, APIs, forms, payment gateways, and automation workflows.",
+        "Developing and maintaining responsive WordPress websites, landing pages, and custom web solutions. Handling UI/UX design, technical SEO, website optimization, and performance improvements. Building custom CRM systems, lead management solutions, and automated business workflows for lead generation, customer onboarding, email notifications, and operations. Managing third-party integrations, APIs, forms, hosting, domains, and technical infrastructure.",
     },
 
     {
@@ -24,11 +25,18 @@ const Experience = () => {
       description:
         "Developing and optimizing telecom websites, including BroadbandsNow.com, using WordPress, Elementor, and responsive web technologies. Managing end-to-end SEO strategies, including on-page, off-page, and technical SEO, keyword research, competitor analysis, backlink building, and content optimization using SEMrush, Ahrefs, Google Search Console, and Google Analytics. Focused on improving search rankings, organic traffic, website performance, and lead generation.",
     },
+    {
+      role: "Senior WordPress Developer",
+      company: "Ithon Technology [United States]",
+      duration: "Jun 2025 — June 2026 (Full-Time)",
+      description:
+        "Leading end-to-end WordPress development for client websites, including custom Elementor builds, responsive marketing pages, SEO optimization, and performance improvements. Develop and maintain operational portals with PHP and MySQL databases, handle website migrations, configure CPTs and ACF, and integrate third-party tools, APIs, forms, payment gateways, and automation workflows.",
+    },
 
     {
       role: "Web Developer Intern",
       company: "WebDevSoft - Web & Software Solutions [Bihar,India]",
-      duration: "Oct 2025 — Present (Part-Time)",
+      duration: "Oct 2025 — December 2025 (Part-Time)",
       description:
         "Contributing to live projects by building reusable components, fixing UI issues, and improving front-end functionality. Collaborating with senior developers to enhance UX and maintain coding best practices.",
     },

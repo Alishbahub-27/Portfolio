@@ -1,0 +1,246 @@
+// ============================================================
+//  THEME — "Oxblood & Champagne"  (couture / fashion editorial)
+//  Imported once from main.jsx:  import "./assets/css/abstracts/_theme.scss";
+// ============================================================
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap");
+
+:root {
+  // Surfaces
+  --bg: #120b0b; // espresso black
+  --bg-elev: #170e0e;
+  --surface: #1c1212;
+  --surface-2: #241717;
+
+  // Brand (RGB triplets → use with alpha: rgb(var(--champagne-rgb) / 0.3))
+  --champagne-rgb: 232 211 176;
+  --oxblood-rgb: 142 42 58;
+  --rose-rgb: 201 139 139;
+  --champagne: rgb(var(--champagne-rgb));
+  --oxblood: rgb(var(--oxblood-rgb));
+  --oxblood-deep: #5c1724;
+  --rose: rgb(var(--rose-rgb));
+
+  // Text
+  --text: #f4ece2;
+  --text-muted: #b8a89b;
+  --text-dim: #7f6f66;
+
+  // Lines
+  --line: rgb(var(--champagne-rgb) / 0.14);
+  --line-strong: rgb(var(--champagne-rgb) / 0.32);
+
+  // Type
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  // Motion & depth
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-lg: 0 40px 90px -30px rgb(0 0 0 / 0.85);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Film grain over the whole site
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+::selection {
+  background: var(--oxblood);
+  color: var(--champagne);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--oxblood) var(--bg);
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--oxblood);
+}
+
+:focus-visible {
+  outline: 1px solid var(--champagne);
+  outline-offset: 4px;
+}
+
+// ---------- Shared: giant outlined "ghost" titles behind sections ----------
+// (the words themselves are set in each section's own file)
+.expertise-section,
+.projects-section,
+.experience-section,
+.contact-section {
+  --ghost-y: 0px;
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip; // "clip" (not hidden) keeps position:sticky working
+
+  &::before {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, var(--ghost-y));
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(80px, 15vw, 250px);
+    line-height: 0.8;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(var(--champagne-rgb) / 0.09);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  > .container,
+  > .container-fluid {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// ---------- Section dividers → scrolling text bands ----------
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--line);
+
+  &.has-marquee {
+    height: auto;
+    padding: 26px 0;
+    overflow: hidden;
+    background: var(--bg-elev);
+    border-block: 1px solid var(--line);
+  }
+
+  .marquee-inner {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 34px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(30px, 4vw, 58px);
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--champagne);
+
+    &:nth-child(even) {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1px rgb(var(--champagne-rgb) / 0.55);
+    }
+  }
+
+  .marquee-star {
+    padding-left: 34px;
+    font-size: 0.42em;
+    font-style: normal;
+    color: var(--rose);
+    -webkit-text-stroke: 0;
+  }
+}
+
+// ---------- Scroll progress bar (injected by GSAP hook) ----------
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--oxblood), var(--champagne));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  z-index: 10002;
+  pointer-events: none;
+}
+
+// ---------- Custom cursor (injected by GSAP hook, mouse only) ----------
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--champagne);
+}
+
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(var(--champagne-rgb) / 0.55);
+  color: var(--bg);
+  font: 700 10px/1 var(--font-body);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition:
+    width 0.45s var(--ease),
+    height 0.45s var(--ease),
+    margin 0.45s var(--ease),
+    background 0.45s var(--ease),
+    border-color 0.45s var(--ease);
+
+  &::after {
+    content: "";
+  }
+
+  &.is-hover {
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    background: rgb(var(--champagne-rgb) / 0.08);
+    border-color: var(--champagne);
+  }
+
+  &.is-view {
+    width: 92px;
+    height: 92px;
+    margin: -46px 0 0 -46px;
+    background: var(--champagne);
+    border-color: transparent;
+    &::after {
+      content: "View";
+    }
+  }
+}

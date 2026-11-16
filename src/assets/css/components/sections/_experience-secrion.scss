@@ -1,12 +1,29 @@
 @use "/src/assets/css/abstracts/mixins";
 
+// Sticky arch image + numbered editorial timeline.
+// --progress (0 → 1) is scrubbed by GSAP to draw the line.
+
 .experience-section {
   position: relative;
-  font-family: "Poppins-Medium";
-  background: #0c0b0b;
-  color: #fff;
+  color: var(--text);
+  font-family: var(--font-body);
+  padding-block: clamp(100px, 12vw, 160px);
+  background: var(--bg);
+
+  &::before {
+    content: "Experience";
+  }
+
   .experience-image {
+    position: sticky;
+    top: 120px;
     text-align: center;
+    padding: 40px 28px 0;
+    border-radius: 999px 999px 0 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgb(var(--oxblood-rgb) / 0.4), transparent 85%);
+    outline: 1px solid var(--line);
+    outline-offset: 12px;
 
     img {
       width: 100%;
@@ -14,75 +31,146 @@
   }
 
   .timeline {
+    --progress: 1;
     position: relative;
-    margin-left: 30px;
-    border-left: 2px solid rgba(241, 89, 72, 0.6);
+    margin-left: 8px;
+    padding-left: 52px;
+    border-left: 0;
+    counter-reset: exp;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1px;
+      height: 100%;
+    }
+    &::before {
+      background: var(--line);
+    }
+    &::after {
+      background: linear-gradient(180deg, var(--champagne), var(--rose));
+      transform: scaleY(var(--progress));
+      transform-origin: top center;
+    }
 
     .timeline-item {
       position: relative;
-      padding-left: 30px;
-      &:nth-child(1),
-      &:nth-child(2) {
-        margin-bottom: 40px;
+      counter-increment: exp;
+      padding-left: 0;
+      padding-bottom: 42px;
+      margin-bottom: 42px;
+      border-bottom: 1px solid var(--line);
+
+      &:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
       }
 
+      // big outlined number
+      &::after {
+        content: counter(exp, decimal-leading-zero);
+        position: absolute;
+        top: -14px;
+        right: 0;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 96px;
+        line-height: 1;
+        color: transparent;
+        -webkit-text-stroke: 1px rgb(var(--champagne-rgb) / 0.16);
+        pointer-events: none;
+        transition:
+          color 0.6s var(--ease),
+          -webkit-text-stroke-color 0.6s var(--ease);
+      }
+
+      &:hover::after {
+        color: rgb(var(--champagne-rgb) / 0.08);
+        -webkit-text-stroke-color: rgb(var(--champagne-rgb) / 0.5);
+      }
+
+      // diamond marker on the line
       .timeline-dot {
         position: absolute;
-        left: -9px;
-        top: 5px;
-        width: 15px;
-        height: 15px;
-        background: rgb(241, 89, 72);
-        border-radius: 50%;
-        box-shadow: 0 0 15px rgba(241, 89, 72, 0.6);
+        left: -58px;
+        top: 14px;
+        width: 14px;
+        height: 14px;
+        display: grid;
+        place-items: center;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+
+        &::after {
+          content: "";
+          width: 9px;
+          height: 9px;
+          background: var(--champagne);
+          transform: rotate(45deg);
+          box-shadow:
+            0 0 0 4px var(--bg),
+            0 0 0 5px rgb(var(--champagne-rgb) / 0.4),
+            0 0 16px rgb(var(--champagne-rgb) / 0.5);
+        }
       }
 
       .timeline-content {
+        padding-right: 90px;
+
         h3 {
-          font-size: 22px;
-          font-weight: 600;
-          text-transform: uppercase;
-          margin-bottom: 10px;
+          font-family: var(--font-display);
+          font-weight: 500;
+          font-size: 30px;
+          line-height: 1.15;
+          text-transform: none;
+          margin-bottom: 12px;
+          color: var(--text);
+          transition: color 0.4s var(--ease);
         }
 
         h4 {
-          font-size: 16px;
-          margin: 0 0 3px 0;
-          color: rgb(241, 89, 72);
-          opacity: 0.9;
+          margin: 0 0 6px;
+          font: 600 12.5px/1.5 var(--font-body);
+          letter-spacing: 2.5px;
+          text-transform: uppercase;
+          color: var(--rose);
+          opacity: 1;
         }
 
         .duration {
-          font-size: 14px;
-          color: #9e9e9e;
+          font-size: 13px;
+          letter-spacing: 0.5px;
+          color: var(--text-dim);
+          &::before {
+            content: "\2014  ";
+          }
         }
 
         p {
-          margin-top: 10px;
-          line-height: 25px;
-          font-family: "Poppins-Regular";
-          color: #d7d2d2;
-          font-size: 16px;
+          margin-top: 16px;
+          font-family: var(--font-body);
+          font-size: 15px;
+          line-height: 1.8;
+          color: var(--text-muted);
         }
+      }
+
+      &:hover .timeline-content h3 {
+        color: var(--champagne);
       }
     }
   }
 }
 
 @include mixins.responsive("lg-devices") {
-  .experience-section {
-    .timeline {
-      .timeline-item {
-        .timeline-content {
-          h3 {
-            font-size: 20px;
-          }
-          p {
-            line-height: 22px;
-          }
-        }
-      }
-    }
+  .experience-section .timeline .timeline-item .timeline-content h3 {
+    font-size: 26px;
   }
 }
 
@@ -91,13 +179,18 @@
     .row {
       flex-direction: column-reverse;
     }
-    .timeline {
-      .timeline-item {
-        .timeline-content {
-          h3 {
-            font-size: 18px;
-          }
-        }
+    .experience-image {
+      position: static;
+      max-width: 420px;
+      margin: 70px auto 0;
+    }
+    .timeline .timeline-item {
+      &::after {
+        font-size: 64px;
+        top: -6px;
+      }
+      .timeline-content {
+        padding-right: 60px;
       }
     }
   }
@@ -106,21 +199,42 @@
 @include mixins.responsive("sm-devices") {
   .experience-section {
     .timeline {
+      margin-left: 4px;
+      padding-left: 32px;
+
       .timeline-item {
-        padding-left: 20px;
+        padding-bottom: 32px;
+        margin-bottom: 32px;
+
+        &::after {
+          font-size: 48px;
+        }
+
+        .timeline-dot {
+          left: -38px;
+        }
+
         .timeline-content {
+          padding-right: 44px;
           h3 {
-            font-size: 16px;
+            font-size: 22px;
           }
           h4 {
-            font-size: 14px;
+            font-size: 11px;
+            letter-spacing: 2px;
+          }
+          .duration {
+            font-size: 12px;
           }
           p {
-            line-height: 18px;
             font-size: 14px;
+            line-height: 1.7;
           }
         }
       }
+    }
+    .experience-image {
+      max-width: 280px;
     }
   }
 }

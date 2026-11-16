@@ -1,66 +1,115 @@
 @use "/src/assets/css/abstracts/mixins";
 
+// Editorial intro + hairline "tile grid" of skills.
+
 .expertise-section {
-  background: #0c0b0b;
-  color: #fff;
+  color: var(--text);
+  padding-block: clamp(100px, 12vw, 160px);
+  background: var(--bg);
+
+  &::before {
+    content: "Expertise";
+  }
 
   .expertise-content {
     h3 {
-      font-size: 26px;
-      color: rgb(241 89 72);
-      margin-bottom: 22px;
-      font-family: "Poppins-Bold";
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(34px, 3.6vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 28px;
+
+      &::before {
+        content: "01 \2014  Expertise";
+        display: block;
+        margin-bottom: 20px;
+        font: 600 12px/1 var(--font-body);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--rose);
+      }
     }
 
     p {
+      font-family: var(--font-body);
       font-size: 16px;
-      line-height: 30px;
-      font-family: "Oxygen-Regular";
-      color: #ccc;
+      line-height: 1.9;
+      color: var(--text-muted);
+
+      // drop cap
+      &:first-of-type::first-letter {
+        float: left;
+        padding: 8px 12px 0 0;
+        font-family: var(--font-display);
+        font-size: 4.4em;
+        line-height: 0.75;
+        color: var(--champagne);
+      }
     }
   }
 
+  // hairline grid: 1px gaps show the container colour as lines
   .skills-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    row-gap: 12px;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    gap: 1px;
+    padding: 0;
+    background: var(--line);
+    border: 1px solid var(--line);
     text-align: center;
-    column-gap: 11px;
 
     .skill {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgb(241, 89, 72, 0.3);
-      border-radius: 50px;
-      padding: 10px 18px;
-      color: rgb(241 89 72);
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgb(241, 89, 72, 0.1);
+      justify-content: center;
+      gap: 14px;
+      min-height: 118px;
+      padding: 18px 10px;
+      background: var(--bg);
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      color: var(--text-muted);
+      font: 600 11.5px/1.3 var(--font-body);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.5s var(--ease);
+
+      // oxblood fill that blooms from the bottom
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, var(--oxblood), var(--oxblood-deep));
+        clip-path: circle(0% at 50% 100%);
+        transition: clip-path 0.8s var(--ease);
+        z-index: -1;
+      }
+
       svg {
-        font-size: 22px;
+        font-size: 30px;
+        color: var(--champagne);
+        transition: transform 0.6s var(--ease);
       }
 
       &:hover {
-        transform: translateY(-5px);
-        background: rgb(241 89 72);
-        color: #000;
-        box-shadow: 0 0 25px rgb(241 89 72);
-      }
-    }
-  }
-}
+        transform: none;
+        background: var(--bg);
+        box-shadow: none;
+        color: var(--champagne);
 
-@include mixins.responsive("lg-devices") {
-  .expertise-section {
-    .expertise-content {
-      h3 {
-        font-size: 24px;
+        &::before {
+          clip-path: circle(150% at 50% 100%);
+        }
+        svg {
+          transform: translateY(-4px) scale(1.12);
+        }
       }
     }
   }
@@ -69,16 +118,12 @@
 @include mixins.responsive("md-devices") {
   .expertise-section {
     .expertise-content {
-      h3 {
-        font-size: 20px;
-      }
+      margin-bottom: 40px;
     }
     .skills-wrapper {
-      gap: 20px;
-      padding: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       .skill {
-        padding: 10px 15px;
-        font-size: 14px;
+        min-height: 104px;
       }
     }
   }
@@ -88,20 +133,28 @@
   .expertise-section {
     .expertise-content {
       h3 {
-        font-size: 16px;
+        font-size: 32px;
+        &::before {
+          font-size: 11px;
+          letter-spacing: 3px;
+        }
       }
       p {
-        font-size: 14px;
-        line-height: 25px;
+        font-size: 14.5px;
+        line-height: 1.8;
       }
     }
     .skills-wrapper {
-      padding: 0;
-      row-gap: 13px;
+      grid-template-columns: repeat(3, 1fr);
       .skill {
-        padding: 8px 6px;
-        font-size: 12px;
-        gap: 4px;
+        min-height: 92px;
+        gap: 10px;
+        padding: 14px 6px;
+        font-size: 9.5px;
+        letter-spacing: 1px;
+        svg {
+          font-size: 22px;
+        }
       }
     }
   }

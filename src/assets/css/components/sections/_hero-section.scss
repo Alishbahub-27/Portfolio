@@ -1,139 +1,269 @@
 @use "/src/assets/css/abstracts/mixins";
 
+// Couture-editorial hero. Motion comes from the GSAP hook.
+// --reveal (0 → 1) wipes in the oxblood panel.
+
 .home-section {
+  --reveal: 1;
   position: relative;
-  color: #fff;
+  color: var(--text);
   padding: 170px 0;
   display: flex;
-  height: 100%;
-  background: #0c0b0b;
   align-items: center;
+  min-height: 100vh;
+  height: 100%;
   overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(50% 60% at 92% 18%, rgb(var(--rose-rgb) / 0.08), transparent 70%),
+    radial-gradient(40% 50% at 70% 100%, rgb(var(--oxblood-rgb) / 0.2), transparent 70%), var(--bg);
+
+  // oxblood panel
   &::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0 auto 0 0;
     width: 40%;
-    height: 100%;
-    background: rgb(241 89 72);
-    z-index: 0;
+    background:
+      radial-gradient(70% 50% at 15% 0%, rgb(255 255 255 / 0.08), transparent 60%),
+      linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-deep) 100%);
+    box-shadow: inset -1px 0 0 rgb(var(--champagne-rgb) / 0.25);
+    transform: scaleX(var(--reveal));
+    transform-origin: left center;
+    z-index: -1;
   }
+
+  // vertical editorial label
+  &::after {
+    content: "Portfolio";
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%) rotate(180deg);
+    font: 600 11px/1 var(--font-body);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: rgb(var(--champagne-rgb) / 0.55);
+    opacity: var(--reveal);
+  }
+
+  // ---------- Social icons (on the panel) ----------
   .home-left {
     position: relative;
     padding: 260px 0 0;
+
     .social-icons {
       display: flex;
-      column-gap: 25px;
+      gap: 12px;
 
+      // no CSS transform: GSAP magnetic effect moves these
       a {
-        color: #fff;
-        font-size: 35px;
-        transition: 0.3s all ease;
-        &:hover {
-          transform: scale(1.1);
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        font-size: 17px;
+        color: var(--champagne);
+        border: 1px solid rgb(var(--champagne-rgb) / 0.4);
+        transition:
+          background 0.45s var(--ease),
+          color 0.45s var(--ease),
+          border-color 0.45s var(--ease);
+
+        &:hover,
+        &:focus-visible {
+          background: var(--champagne);
+          border-color: var(--champagne);
+          color: var(--oxblood-deep);
         }
       }
     }
   }
 
+  // ---------- Text ----------
   .home-right {
+    position: relative;
     padding: 0 0 0 80px;
-    font-family: "Oxygen-Regular";
+    font-family: var(--font-body);
+
     .typewriter {
-      font-size: 28px;
-      color: rgb(241 89 72);
-      font-weight: 500;
-      letter-spacing: 1px;
-      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
+      font: 600 13px/1.4 var(--font-body);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--rose);
+
+      &::before {
+        content: "";
+        width: 44px;
+        height: 1px;
+        background: var(--rose);
+        flex-shrink: 0;
+      }
     }
 
     .name {
-      font-size: 48px;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      font-family: "SpecialGothicExpandedOne-Regular";
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(46px, 6.2vw, 104px);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      text-transform: none;
+      margin-bottom: 30px;
+      background: linear-gradient(100deg, var(--text) 0%, var(--champagne) 45%, var(--rose) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .description {
-      font-size: 18px;
-      color: #ccc;
-      margin-bottom: 30px;
+      max-width: 500px;
+      margin-bottom: 42px;
+      padding-left: 22px;
+      border-left: 1px solid var(--line-strong);
+      font-size: 16.5px;
+      line-height: 1.85;
+      color: var(--text-muted);
     }
 
     .buttons {
       display: flex;
-      gap: 15px;
+      flex-wrap: wrap;
+      gap: 16px;
 
+      // no CSS transform: GSAP magnetic effect moves these
       .btn {
-        padding: 15px 30px;
-        border-radius: 30px;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px 36px;
+        border-radius: 2px;
         text-decoration: none;
-        font-weight: 600;
-        font-size: 16px;
-        transition: all 0.3s ease;
+        font: 600 12.5px/1 var(--font-body);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        transition:
+          color 0.5s var(--ease),
+          border-color 0.5s var(--ease);
+
+        // fill that rises on hover
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          transform: scaleY(0);
+          transform-origin: bottom;
+          transition: transform 0.6s var(--ease);
+          z-index: -1;
+        }
+        &:hover::before,
+        &:focus-visible::before {
+          transform: scaleY(1);
+        }
 
         &.primary-btn {
-          background: rgb(241 89 72);
-          color: #000;
-          &:hover {
-            background: #fff;
+          background: var(--champagne);
+          color: var(--bg);
+          border: 1px solid var(--champagne);
+          &::before {
+            background: var(--oxblood);
+          }
+          &:hover,
+          &:focus-visible {
+            color: var(--champagne);
           }
         }
 
         &.secondary-btn {
-          border: 1px solid rgb(241 89 72);
-          color: rgb(241 89 72);
-          &:hover {
-            background: rgb(241 89 72);
-            color: #000;
+          background: transparent;
+          color: var(--text);
+          border: 1px solid var(--line-strong);
+          &::before {
+            background: var(--champagne);
+          }
+          &:hover,
+          &:focus-visible {
+            color: var(--bg);
+            border-color: var(--champagne);
           }
         }
       }
     }
   }
 
+  // ---------- Arch-framed portrait ----------
   .home-img {
     position: absolute;
     left: 40%;
     top: 50%;
-    transform: translate(-50%, -50%);
-    width: 380px;
-    height: 380px;
-    border-radius: 50%;
+    transform: translate(-50%, -50%); // GSAP takes over with xPercent/yPercent
+    width: 330px;
+    height: 440px;
+    border-radius: 999px 999px 0 0;
     overflow: hidden;
-    border: 1px solid transparent;
+    background: var(--surface);
+    outline: 1px solid rgb(var(--champagne-rgb) / 0.45);
+    outline-offset: 14px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: grayscale(0.25) contrast(1.05);
+      transition:
+        transform 1.2s var(--ease),
+        filter 0.8s var(--ease);
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+      filter: none;
     }
   }
 }
 
+// ---------- Large desktops down ----------
 @include mixins.responsive("xl-devices") {
   .home-section {
     .home-right {
       padding: 0 0 0 115px;
-      .name {
-        font-size: 35px;
-      }
       .description {
-        font-size: 16px;
+        font-size: 15.5px;
       }
+    }
+    .home-img {
+      width: 290px;
+      height: 390px;
     }
   }
 }
 
+// ---------- Tablets ----------
 @include mixins.responsive("lg-devices") {
   .home-section {
-    padding: 0 0 85px;
+    padding: 0 0 95px;
+    min-height: auto;
 
     &::before {
+      inset: 0 0 auto 0;
       width: 100%;
       height: 40%;
+      box-shadow: inset 0 -1px 0 rgb(var(--champagne-rgb) / 0.25);
+      transform: scaleY(var(--reveal));
+      transform-origin: top center;
+    }
+    &::after {
+      display: none;
     }
 
     .home-left {
@@ -145,67 +275,104 @@
     }
 
     .home-right {
-      padding: 385px 40px 35px 40px;
+      padding: 385px 40px 35px;
       text-align: center;
+
+      .typewriter {
+        justify-content: center;
+        &::after {
+          content: "";
+          width: 44px;
+          height: 1px;
+          background: var(--rose);
+        }
+      }
       .name {
-        font-size: 40px;
+        font-size: 54px;
       }
       .description {
-        font-size: 16px;
-        margin-bottom: 25px;
+        margin: 0 auto 32px;
+        padding-left: 0;
+        border-left: 0;
+        font-size: 15.5px;
       }
       .buttons {
         justify-content: center;
       }
     }
 
+    // social icons sit on dark background here
+    .home-left .social-icons a {
+      color: var(--champagne);
+      border-color: var(--line-strong);
+    }
+
     .home-img {
-      width: 280px;
+      width: 230px;
       height: 280px;
       left: 50%;
       top: 35%;
+      outline-offset: 10px;
     }
   }
 }
 
+// ---------- Phones ----------
 @include mixins.responsive("sm-devices") {
   .home-section {
-    padding: 0 0 85px;
+    padding: 0 0 90px;
 
     &::before {
       height: 32%;
     }
 
     .home-right {
-      padding: 260px 22px 25px 22px;
+      padding: 260px 22px 25px;
+
       .typewriter {
-        font-size: 18px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        gap: 10px;
+        margin-bottom: 18px;
+        &::before,
+        &::after {
+          width: 24px;
+        }
       }
       .name {
-        font-size: 30px;
+        font-size: 40px;
+        margin-bottom: 18px;
       }
       .description {
         font-size: 14px;
-        margin-bottom: 20px;
+        line-height: 1.7;
+        margin-bottom: 26px;
       }
       .buttons {
+        gap: 10px;
         .btn {
-          padding: 10px 20px;
-          font-size: 14px;
+          flex: 1 1 140px;
+          padding: 15px 16px;
+          font-size: 11px;
+          letter-spacing: 2px;
         }
       }
     }
-    .home-left {
-      .social-icons {
-        a {
-          font-size: 25px;
-        }
+
+    .home-left .social-icons {
+      gap: 10px;
+      a {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
       }
     }
+
     .home-img {
-      width: 220px;
+      width: 180px;
       height: 220px;
-      top: 28%;
+      top: 27%;
+      outline-offset: 8px;
     }
   }
 }

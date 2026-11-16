@@ -4,8 +4,11 @@ import Expertise from "./assets/js/Expertise";
 import Projects from "./assets/js/Projects";
 import Experience from "./assets/js/Experience";
 import Contact from "./assets/js/Contact";
+import useGsapAnimations from "./hooks/useGsapAnimations";
 
 export default function App() {
+  useGsapAnimations();
+
   return (
     <>
       <Header />
