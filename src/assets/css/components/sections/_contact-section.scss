@@ -8,8 +8,7 @@
   padding: clamp(100px, 12vw, 160px) 0 70px;
   background: radial-gradient(45% 55% at 20% 60%, rgb(var(--oxblood-rgb) / 0.22), transparent 70%), var(--bg);
   .contact-image img {
-    filter: grayscale(1) sepia(0.55) hue-rotate(-25deg) saturate(1.6) brightness(0.9) contrast(1.05);
-    opacity: 0.9;
+    filter: hue-rotate(-16deg) saturate(0.9) brightness(0.78) contrast(1.1);
   }
   &::before {
     content: "Let\2019s talk";
