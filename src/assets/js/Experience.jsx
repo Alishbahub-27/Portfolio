@@ -11,7 +11,7 @@ const Experience = () => {
     },
     {
       role: "Senior Web Developer",
-      company: "CostVisory",
+      company: "CostVisory [New Jersey , United States ]",
       duration: "Aug 2026 — Present",
       location: "Teaneck, US",
       description:
